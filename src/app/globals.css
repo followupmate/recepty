@@ -1,27 +1,48 @@
 :root {
-  --bg: #FAFAF8;
-  --card: #FFFFFF;
-  --border: #F0EDE8;
-  --border-hover: #D4C9B8;
-  --text: #2C2520;
-  --text-soft: #8C8177;
-  --accent: #C4713B;
-  --accent-bg: #FEF6F0;
-  --shadow: 0 1px 3px rgba(44,37,32,0.06), 0 1px 2px rgba(44,37,32,0.04);
-  --shadow-hover: 0 8px 25px rgba(44,37,32,0.1), 0 3px 10px rgba(44,37,32,0.06);
-  --font-display: 'Source Serif 4', Georgia, serif;
-  --font-body: 'Inter', sans-serif;
+  /* Brand Colors */
+  --primary: #9d4500;
+  --primary-container: #ffae81;
+  --on-primary: #fff7f5;
+  --secondary: #586431;
+  --on-secondary: #ffffff;
+  --tertiary: #934c00;
+
+  /* Surface Hierarchy */
+  --surface: #f0ffd8;
+  --surface-bright: #f8ffee;
+  --surface-dim: #c2e697;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #e5fbc7;
+  --surface-container: #dff8be;
+  --surface-container-high: #d5f2b0;
+  --surface-container-highest: #cdeda5;
+
+  /* On-Surface */
+  --on-surface: #213904;
+  --on-surface-variant: #3d5210;
+
+  /* Outline */
+  --outline: #678346;
+  --outline-variant: #9dbc79;
+
+  /* Typography */
+  --font-display: 'Noto Serif', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  /* Atmospheric shadows — tinted with on-surface */
+  --shadow-ambient: 0 4px 16px rgba(33,57,4,0.06), 0 1px 4px rgba(33,57,4,0.04);
+  --shadow-float:   0 16px 40px rgba(33,57,4,0.08), 0 4px 12px rgba(33,57,4,0.05);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--text);
+  background: var(--surface);
+  color: var(--on-surface);
   -webkit-font-smoothing: antialiased;
 }
 
-input:focus { outline: none; border-color: rgba(196,113,59,0.3) !important; }
+input:focus { outline: none; background: var(--surface-bright) !important; }
 button { cursor: pointer; }
 button:active { transform: scale(0.97); }
