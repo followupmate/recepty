@@ -4,8 +4,8 @@
   "description": "Rodinná zbierka receptov",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FAFAF8",
-  "theme_color": "#C4713B",
+  "background_color": "#f0ffd8",
+  "theme_color": "#9d4500",
   "orientation": "portrait-primary",
   "icons": [
     {
