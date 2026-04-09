@@ -29,20 +29,33 @@
   --font-display: 'Noto Serif', Georgia, serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
 
-  /* Atmospheric shadows — tinted with on-surface */
-  --shadow-ambient: 0 4px 16px rgba(33,57,4,0.06), 0 1px 4px rgba(33,57,4,0.04);
-  --shadow-float:   0 16px 40px rgba(33,57,4,0.08), 0 4px 12px rgba(33,57,4,0.05);
+  /* Atmospheric shadows — tinted with on-surface (#213904) */
+  --shadow-ambient: 0 4px 24px rgba(33,57,4,0.06), 0 1px 4px rgba(33,57,4,0.04);
+  --shadow-float:   0 20px 48px rgba(33,57,4,0.09), 0 6px 16px rgba(33,57,4,0.06);
+  /* Ghost border — outline-variant at 15% */
+  --ghost-border: 0 0 0 1px rgba(157,188,121,0.15);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
   background: var(--surface);
   color: var(--on-surface);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Focus: shift background instead of border */
 input:focus { outline: none; background: var(--surface-bright) !important; }
 button { cursor: pointer; }
-button:active { transform: scale(0.97); }
+button:active { transform: scale(0.96); }
+
+/* Thin earthy scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--surface-dim); border-radius: 99px; }
+
+::selection { background: rgba(157,69,0,0.15); }
