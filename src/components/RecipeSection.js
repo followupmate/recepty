@@ -6,7 +6,7 @@ export default function RecipeSection({ title, recipes }) {
   return (
     <section className="section">
       <div className="section__header">
-        <h2>{title}</h2>
+        <h2 className="section__title">{title}</h2>
       </div>
       <div className="cards-grid">
         {recipes.map((recipe) => (

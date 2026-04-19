@@ -24,7 +24,7 @@ export default function RecipeDetailPage({ params }) {
     return scaleIngredients(recipe.ingredients, recipe.defaultServings || 1, servings);
   }, [recipe, servings]);
 
-  if (!hydrated) return <main className="page"><p>{SK.common.loadingRecipe}</p></main>;
+  if (!hydrated) return <main className="page"><p className="text-muted">{SK.common.loadingRecipe}</p></main>;
   if (!recipe) return <main className="page"><p>{SK.common.recipeNotFound}</p><Link href="/">{SK.common.backHome}</Link></main>;
 
   const startCooking = () => {
@@ -43,14 +43,14 @@ export default function RecipeDetailPage({ params }) {
           <span>{recipe.difficulty || SK.detail.easy}</span>
         </p>
 
-        <button className="btn" onClick={startCooking}>{SK.detail.startCooking}</button>
+        <button type="button" className="btn" onClick={startCooking}>{SK.detail.startCooking}</button>
 
         <section className="section panel servings-panel">
           <h2>{SK.detail.servings}</h2>
           <div className="servings-control">
-            <button className="btn btn--ghost" onClick={() => setServings((s) => Math.max(1, s - 1))}>-</button>
+            <button type="button" className="btn btn--ghost" onClick={() => setServings((s) => Math.max(1, s - 1))}>-</button>
             <strong>{servings}</strong>
-            <button className="btn btn--ghost" onClick={() => setServings((s) => s + 1)}>+</button>
+            <button type="button" className="btn btn--ghost" onClick={() => setServings((s) => s + 1)}>+</button>
           </div>
         </section>
 

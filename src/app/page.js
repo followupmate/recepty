@@ -108,7 +108,7 @@ export default function HomePage() {
       />
 
       {!hydrated ? (
-        <p>{SK.common.loadingCookbook}</p>
+        <p className="text-muted">{SK.common.loadingCookbook}</p>
       ) : (
         <>
           {userRecipes.length === 0 && <EmptyState />}

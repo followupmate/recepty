@@ -16,9 +16,9 @@ export default function RecipePreviewEditor({ draft, onChange, onSave, onReset }
 
   return (
     <div className="panel">
-      <h2>{SK.preview.title}</h2>
+      <h2 className="panel__title">{SK.preview.title}</h2>
       <label className="field">
-        <span>{SK.preview.recipeTitle}</span>
+        <span className="field__label">{SK.preview.recipeTitle}</span>
         <input
           value={draft.title}
           onChange={(e) => onChange({ ...draft, title: e.target.value })}
@@ -26,7 +26,7 @@ export default function RecipePreviewEditor({ draft, onChange, onSave, onReset }
       </label>
 
       <label className="field">
-        <span>{SK.preview.servings}</span>
+        <span className="field__label">{SK.preview.servings}</span>
         <input
           type="number"
           min={1}
@@ -74,7 +74,7 @@ export default function RecipePreviewEditor({ draft, onChange, onSave, onReset }
         <h3>{SK.preview.steps}</h3>
         {draft.steps.map((step, index) => (
           <label key={`step-${index}`} className="field">
-            <span>{SK.preview.step} {index + 1}</span>
+            <span className="field__label">{SK.preview.step} {index + 1}</span>
             <textarea
               rows={2}
               value={step.text}
@@ -95,8 +95,8 @@ export default function RecipePreviewEditor({ draft, onChange, onSave, onReset }
       </div>
 
       <div className="actions-row">
-        <button className="btn btn--ghost" onClick={onReset}>{SK.common.reset}</button>
-        <button className="btn" onClick={onSave}>{SK.common.save}</button>
+        <button type="button" className="btn btn--ghost" onClick={onReset}>{SK.common.reset}</button>
+        <button type="button" className="btn" onClick={onSave}>{SK.common.save}</button>
       </div>
     </div>
   );

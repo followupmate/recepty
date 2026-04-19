@@ -79,17 +79,17 @@ export default function AddRecipePage() {
   return (
     <main className="page">
       <header className="section__header">
-        <h1>{SK.add.title}</h1>
+        <h1 className="page-title">{SK.add.title}</h1>
       </header>
 
       <div className="mode-switch">
-        <button className={`chip ${mode === MODE.PHOTO ? 'chip--active' : ''}`} onClick={() => { setMode(MODE.PHOTO); reset(); }}>
+        <button type="button" className={`chip ${mode === MODE.PHOTO ? 'chip--active' : ''}`} onClick={() => { setMode(MODE.PHOTO); reset(); }}>
           {SK.add.modes.photo}
         </button>
-        <button className={`chip ${mode === MODE.URL ? 'chip--active' : ''}`} onClick={() => { setMode(MODE.URL); reset(); }}>
+        <button type="button" className={`chip ${mode === MODE.URL ? 'chip--active' : ''}`} onClick={() => { setMode(MODE.URL); reset(); }}>
           {SK.add.modes.url}
         </button>
-        <button className={`chip ${mode === MODE.MANUAL ? 'chip--active' : ''}`} onClick={startManual}>
+        <button type="button" className={`chip ${mode === MODE.MANUAL ? 'chip--active' : ''}`} onClick={startManual}>
           {SK.add.modes.manual}
         </button>
       </div>
@@ -105,23 +105,23 @@ export default function AddRecipePage() {
       {status === 'idle' && mode === MODE.URL && (
         <div className="panel">
           <label className="field">
-            <span>{SK.add.urlLabel}</span>
+            <span className="field__label">{SK.add.urlLabel}</span>
             <input value={urlInput} onChange={(e) => setUrlInput(e.target.value)} placeholder={SK.add.urlPlaceholder} />
           </label>
-          <button className="btn" onClick={parseFromUrl}>{SK.add.urlButton}</button>
+          <button type="button" className="btn" onClick={parseFromUrl}>{SK.add.urlButton}</button>
         </div>
       )}
 
       {status === 'idle' && mode === MODE.MANUAL && (
         <div className="panel">
-          <button className="btn" onClick={startManual}>{SK.add.manualButton}</button>
+          <button type="button" className="btn" onClick={startManual}>{SK.add.manualButton}</button>
         </div>
       )}
 
       {status === 'loading' && (
         <div className="panel">
-          <h2>{mode === MODE.URL ? SK.add.parsingUrl : SK.add.parsingImage}</h2>
-          <p>{SK.add.parsingHint}</p>
+          <h2 className="panel__title">{mode === MODE.URL ? SK.add.parsingUrl : SK.add.parsingImage}</h2>
+          <p className="text-muted">{SK.add.parsingHint}</p>
         </div>
       )}
 
@@ -131,9 +131,9 @@ export default function AddRecipePage() {
 
       {status === 'error' && (
         <div className="panel panel--error">
-          <h2>{SK.add.parseErrorTitle}</h2>
+          <h2 className="panel__title">{SK.add.parseErrorTitle}</h2>
           <p>{error}</p>
-          <button className="btn" onClick={reset}>{SK.common.retry}</button>
+          <button type="button" className="btn" onClick={reset}>{SK.common.retry}</button>
         </div>
       )}
     </main>

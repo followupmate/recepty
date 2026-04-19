@@ -10,12 +10,13 @@ export default function CookingMode({ recipe, onExit }) {
 
   return (
     <div className="cook-mode">
-      <button className="btn btn--ghost" onClick={onExit}>{SK.cookMode.exit}</button>
+      <button type="button" className="btn btn--ghost" onClick={onExit}>{SK.cookMode.exit}</button>
       <p className="cook-mode__progress">{SK.cookMode.step} {progress}</p>
       <h1>{recipe.title}</h1>
       <p className="cook-mode__step">{currentStep?.text}</p>
       <div className="actions-row">
         <button
+          type="button"
           className="btn btn--ghost"
           onClick={() => setIndex((i) => Math.max(0, i - 1))}
           disabled={index === 0}
@@ -23,6 +24,7 @@ export default function CookingMode({ recipe, onExit }) {
           {SK.cookMode.previous}
         </button>
         <button
+          type="button"
           className="btn"
           onClick={() => setIndex((i) => Math.min(recipe.steps.length - 1, i + 1))}
           disabled={index === recipe.steps.length - 1}
