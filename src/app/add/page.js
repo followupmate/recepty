@@ -1,10 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RecipePreviewEditor from '../../components/RecipePreviewEditor';
+import UploadEntryCard from '../../components/UploadEntryCard';
 import { useRecipes } from '../../hooks/useRecipes';
 import { parseRecipeFromImage } from '../../lib/parseRecipeFromImage';
+import { consumePendingUploadFile } from '../../lib/pendingUploadStore';
 
 export default function AddRecipePage() {
   const router = useRouter();
@@ -13,16 +15,8 @@ export default function AddRecipePage() {
   const [error, setError] = useState('');
   const [draft, setDraft] = useState(null);
 
-  const reset = () => {
-    setStatus('idle');
-    setDraft(null);
-    setError('');
-  };
-
-  const onFileSelected = async (event) => {
-    const file = event.target.files?.[0];
+  const parseFromFile = async (file) => {
     if (!file) return;
-
     setStatus('loading');
     setError('');
 
@@ -34,6 +28,19 @@ export default function AddRecipePage() {
       setStatus('error');
       setError(e.message || 'Could not parse this image.');
     }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('source') !== 'home') return;
+    const pending = consumePendingUploadFile();
+    if (pending) parseFromFile(pending);
+  }, []);
+
+  const reset = () => {
+    setStatus('idle');
+    setDraft(null);
+    setError('');
   };
 
   const save = () => {
@@ -51,11 +58,11 @@ export default function AddRecipePage() {
       </header>
 
       {status === 'idle' && (
-        <label className="upload-dropzone">
-          <span className="upload-dropzone__title">Upload recipe photo</span>
-          <span>Take a photo or upload from your gallery.</span>
-          <input type="file" accept="image/*" onChange={onFileSelected} />
-        </label>
+        <UploadEntryCard
+          title="Upload recipe photo"
+          subtitle="Take a photo or upload from your gallery."
+          onFileSelected={parseFromFile}
+        />
       )}
 
       {status === 'loading' && (

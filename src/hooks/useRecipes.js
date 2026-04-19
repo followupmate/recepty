@@ -63,9 +63,11 @@ export function useRecipes() {
   return {
     hydrated,
     recipes,
+    userRecipes,
     history,
     addRecipe,
     trackCooked,
+    trackOpened: trackCooked,
     findRecipeById,
   };
 }

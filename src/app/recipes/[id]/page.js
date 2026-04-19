@@ -2,12 +2,17 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useRecipes } from '../../../hooks/useRecipes';
 
 export default function RecipeDetailPage({ params }) {
   const router = useRouter();
-  const { findRecipeById, hydrated, trackCooked } = useRecipes();
+  const { findRecipeById, hydrated, trackCooked, trackOpened } = useRecipes();
   const recipe = findRecipeById(params.id);
+
+  useEffect(() => {
+    if (recipe) trackOpened(recipe.id);
+  }, [recipe, trackOpened]);
 
   if (!hydrated) return <main className="page"><p>Loading recipe...</p></main>;
   if (!recipe) return <main className="page"><p>Recipe not found.</p><Link href="/">Back home</Link></main>;

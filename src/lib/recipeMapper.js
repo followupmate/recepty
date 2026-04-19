@@ -18,16 +18,31 @@ const categoryImages = {
   dezerty: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80',
 };
 
+const sweetPattern = /(choco|čoko|karamel|med|dessert|dezert|lotus|oreo|kinder|kit.?kat|snickers|milky|merci|raffaello|maxi king|sweet)/i;
+const oatPattern = /(ovsen|kaša|porridge|oat)/i;
+
 function normalizeAmount(value, unit) {
   if (!value && !unit) return '';
   if (!value && unit) return unit;
   return `${value}${unit ? ` ${unit}` : ''}`.trim();
 }
 
+function inferAdditionalTags(title, baseTags) {
+  const tags = [...baseTags];
+
+  if (oatPattern.test(title) && !tags.includes('oat')) tags.push('oat');
+  if (sweetPattern.test(title) && !tags.includes('sweet')) tags.push('sweet');
+
+  return tags;
+}
+
 export function mapLegacyRecipe(legacyRecipe) {
+  const title = legacyRecipe.t;
+  const baseTags = categoryTags[legacyRecipe.cat] || [];
+
   return {
     id: String(legacyRecipe.id),
-    title: legacyRecipe.t,
+    title,
     image: categoryImages[legacyRecipe.cat] || categoryImages.ranajky,
     ingredients: (legacyRecipe.ing || []).map(([name, amount, unit]) => ({
       name,
@@ -37,7 +52,7 @@ export function mapLegacyRecipe(legacyRecipe) {
       order: index + 1,
       text,
     })),
-    tags: categoryTags[legacyRecipe.cat] || [],
+    tags: inferAdditionalTags(title, baseTags),
     time: legacyRecipe.s?.length ? `${legacyRecipe.s.length * 7} min` : undefined,
     difficulty: legacyRecipe.s?.length > 4 ? 'Medium' : 'Easy',
     createdAt: `2025-01-${String((legacyRecipe.id % 27) + 1).padStart(2, '0')}T10:00:00.000Z`,
