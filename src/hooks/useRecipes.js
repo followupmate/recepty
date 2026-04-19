@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { seedRecipes } from '../lib/recipeMapper';
+import { normalizeRecipe } from '../lib/utils/recipeNormalizer';
 
 const STORAGE_KEY = 'cookbook-user-recipes-v1';
 const HISTORY_KEY = 'cookbook-cooked-history-v1';
@@ -32,7 +33,7 @@ export function useRecipes() {
 
   const addRecipe = useCallback((recipeInput) => {
     const recipe = {
-      ...recipeInput,
+      ...normalizeRecipe(recipeInput),
       id: `user-${Date.now()}`,
       createdAt: new Date().toISOString(),
       source: 'user',

@@ -21,12 +21,6 @@ const categoryImages = {
 const sweetPattern = /(choco|čoko|karamel|med|dessert|dezert|lotus|oreo|kinder|kit.?kat|snickers|milky|merci|raffaello|maxi king|sweet)/i;
 const oatPattern = /(ovsen|kaša|porridge|oat)/i;
 
-function normalizeAmount(value, unit) {
-  if (!value && !unit) return '';
-  if (!value && unit) return unit;
-  return `${value}${unit ? ` ${unit}` : ''}`.trim();
-}
-
 function inferAdditionalTags(title, baseTags) {
   const tags = [...baseTags];
 
@@ -34,6 +28,15 @@ function inferAdditionalTags(title, baseTags) {
   if (sweetPattern.test(title) && !tags.includes('sweet')) tags.push('sweet');
 
   return tags;
+}
+
+function normalizeLegacyIngredient([name, amount, unit]) {
+  return {
+    name,
+    amount: amount > 0 ? Number(amount) : null,
+    unit: unit || '',
+    optional: amount === 0,
+  };
 }
 
 export function mapLegacyRecipe(legacyRecipe) {
@@ -44,17 +47,15 @@ export function mapLegacyRecipe(legacyRecipe) {
     id: String(legacyRecipe.id),
     title,
     image: categoryImages[legacyRecipe.cat] || categoryImages.ranajky,
-    ingredients: (legacyRecipe.ing || []).map(([name, amount, unit]) => ({
-      name,
-      amount: normalizeAmount(amount, unit),
-    })),
+    defaultServings: legacyRecipe.bp || 1,
+    ingredients: (legacyRecipe.ing || []).map(normalizeLegacyIngredient),
     steps: (legacyRecipe.s || []).map((text, index) => ({
       order: index + 1,
       text,
     })),
     tags: inferAdditionalTags(title, baseTags),
     time: legacyRecipe.s?.length ? `${legacyRecipe.s.length * 7} min` : undefined,
-    difficulty: legacyRecipe.s?.length > 4 ? 'Medium' : 'Easy',
+    difficulty: legacyRecipe.s?.length > 4 ? 'Stredné' : 'Jednoduché',
     createdAt: `2025-01-${String((legacyRecipe.id % 27) + 1).padStart(2, '0')}T10:00:00.000Z`,
     source: 'seed',
   };

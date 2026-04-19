@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 
-export default function UploadEntryCard({ onFileSelected, title = 'Add recipe from photo', subtitle = 'Click to upload or drag & drop an image.' }) {
+export default function UploadEntryCard({ onFileSelected, title = 'Pridať recept z fotky', subtitle = 'Ťukni sem alebo sem pretiahni obrázok.' }) {
   const [dragging, setDragging] = useState(false);
   const fileInputRef = useRef(null);
 

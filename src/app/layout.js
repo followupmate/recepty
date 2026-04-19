@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Personal Cookbook',
-  description: 'AI-assisted personal cookbook for your recipes',
+  title: 'Moja kuchárka',
+  description: 'Osobná AI-asistovaná kuchárka',
   manifest: '/manifest.json',
 };
 
@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Personal Cookbook" />
+        <meta name="apple-mobile-web-app-title" content="Moja kuchárka" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
       <body>{children}</body>

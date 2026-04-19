@@ -5,16 +5,17 @@ import { useMemo } from 'react';
 import RecipeSection from '../components/RecipeSection';
 import UploadEntryCard from '../components/UploadEntryCard';
 import { useRecipes } from '../hooks/useRecipes';
+import { SK } from '../lib/strings/sk';
 import { setPendingUploadFile } from '../lib/pendingUploadStore';
 
 function EmptyState() {
   return (
     <section className="empty-state">
-      <h2>Your cookbook starts with one photo.</h2>
+      <h2>{SK.home.emptyTitle}</h2>
       <ol>
-        <li><strong>Upload photo</strong> of a handwritten or printed recipe.</li>
-        <li><strong>Review & edit</strong> parsed title, ingredients, and steps.</li>
-        <li><strong>Cook</strong> anytime from your saved cookbook.</li>
+        {SK.home.emptySteps.map((step) => (
+          <li key={step}>{step}</li>
+        ))}
       </ol>
     </section>
   );
@@ -101,21 +102,21 @@ export default function HomePage() {
   return (
     <main className="page">
       <UploadEntryCard
-        title="Add recipe from photo"
-        subtitle="Drop an image here or tap to upload and parse immediately."
+        title={SK.home.addFromPhoto}
+        subtitle={SK.home.addFromPhotoHint}
         onFileSelected={goToAddWithFile}
       />
 
       {!hydrated ? (
-        <p>Loading your cookbook...</p>
+        <p>{SK.common.loadingCookbook}</p>
       ) : (
         <>
           {userRecipes.length === 0 && <EmptyState />}
-          <RecipeSection title="Cook again" recipes={sections.cookAgain} />
-          <RecipeSection title="Latest captures" recipes={sections.recentlyCaptured} />
-          <RecipeSection title="Breakfast recipes (including oat meals)" recipes={sections.breakfast} />
-          <RecipeSection title="Savory meals" recipes={sections.savory} />
-          <RecipeSection title="Sweet picks" recipes={sections.dessert} />
+          <RecipeSection title={SK.home.cookAgain} recipes={sections.cookAgain} />
+          <RecipeSection title={SK.home.latest} recipes={sections.recentlyCaptured} />
+          <RecipeSection title={SK.home.breakfast} recipes={sections.breakfast} />
+          <RecipeSection title={SK.home.savory} recipes={sections.savory} />
+          <RecipeSection title={SK.home.sweet} recipes={sections.dessert} />
         </>
       )}
     </main>
